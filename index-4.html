@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>The Agpians — Back on September 07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET ──────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:    #05080f;
+  --teal:   #0a7c6e;
+  --teal2:  #12a898;
+  --off:    #f0ede6;
+  --dim:    rgba(240,237,230,0.08);
+  --dim2:   rgba(240,237,230,0.04);
+  --mid:    rgba(240,237,230,0.45);
+  --ghost:  rgba(240,237,230,0.18);
+  --glow:   rgba(10,124,110,0.18);
+}
+html{font-size:16px;height:100%;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);
+  color:var(--off);
+  font-family:'Syne',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* ── GRAIN OVERLAY ───────────────────────────────────────── */
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:0;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.4;
+}
+
+/* ── AMBIENT GLOW ────────────────────────────────────────── */
+.glow-orb{
+  position:fixed;
+  top:-20vh;left:50%;
+  transform:translateX(-50%);
+  width:min(900px,120vw);
+  height:min(700px,90vw);
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,
+    rgba(10,124,110,0.12) 0%,
+    rgba(10,124,110,0.05) 40%,
+    transparent 70%);
+  pointer-events:none;
+  z-index:0;
+  animation:orb-pulse 8s ease-in-out infinite;
+}
+@keyframes orb-pulse{
+  0%,100%{opacity:0.7;transform:translateX(-50%) scale(1)}
+  50%{opacity:1;transform:translateX(-50%) scale(1.06)}
+}
+
+/* ── LAYOUT ──────────────────────────────────────────────── */
+.page{
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:clamp(28px,5vh,52px) clamp(20px,5vw,60px);
+  max-width:1100px;
+  margin:0 auto;
+}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+nav{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  opacity:0;
+  animation:fade-up 0.9s 0.2s ease forwards;
+}
+.nav-brand{
+  display:flex;align-items:center;gap:11px;
+}
+.nav-logo{
+  width:34px;height:34px;
+  object-fit:contain;
+  opacity:0.9;
+  filter:brightness(1.1);
+}
+.nav-name{
+  font-family:'Syne',sans-serif;
+  font-size:13px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--off);opacity:0.85;
+}
+.nav-status{
+  display:flex;align-items:center;gap:8px;
+  font-family:'DM Mono',monospace;
+  font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--mid);
+}
+.status-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--teal2);
+  animation:blink 2.4s ease-in-out infinite;
+}
+@keyframes blink{
+  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(18,168,152,0)}
+  50%{opacity:0.5;box-shadow:0 0 0 5px rgba(18,168,152,0)}
+}
+
+/* ── HERO ────────────────────────────────────────────────── */
+.hero{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:clamp(32px,8vh,80px) 0;
+  gap:0;
+}
+
+/* Eyebrow */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:32px;
+  opacity:0;
+  animation:fade-up 0.8s 0.5s ease forwards;
+}
+.ey-line{width:28px;height:1px;background:var(--teal)}
+.ey-txt{
+  font-family:'DM Mono',monospace;
+  font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--teal2);
+}
+
+/* Main heading */
+.headline{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(52px,9vw,112px);
+  font-weight:300;
+  line-height:0.95;
+  letter-spacing:-0.03em;
+  color:#fff;
+  margin-bottom:clamp(16px,3vw,28px);
+  opacity:0;
+  animation:fade-up 1s 0.7s ease forwards;
+}
+.headline em{
+  font-style:italic;
+  background:linear-gradient(135deg,#c4b5fd 0%,var(--teal2) 45%,#6ee7b7 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* Return date */
+.return-date{
+  font-family:'DM Mono',monospace;
+  font-size:clamp(11px,1.5vw,14px);
+  letter-spacing:0.20em;text-transform:uppercase;
+  color:var(--mid);
+  margin-bottom:clamp(40px,7vh,72px);
+  opacity:0;
+  animation:fade-up 0.8s 0.9s ease forwards;
+}
+
+/* ── COUNTDOWN ───────────────────────────────────────────── */
+.countdown{
+  display:flex;
+  align-items:flex-start;
+  gap:clamp(16px,4vw,44px);
+  margin-bottom:clamp(44px,8vh,80px);
+  opacity:0;
+  animation:fade-up 0.8s 1.1s ease forwards;
+}
+.cd-unit{display:flex;flex-direction:column;align-items:center;gap:8px}
+.cd-num{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(38px,7vw,80px);
+  font-weight:300;
+  line-height:1;
+  color:#fff;
+  min-width:clamp(60px,9vw,110px);
+  text-align:center;
+  /* subtle flip animation */
+  transition:transform 0.2s cubic-bezier(0.4,0,0.2,1),opacity 0.2s ease;
+}
+.cd-num.flip{
+  transform:translateY(-6px);
+  opacity:0.6;
+}
+.cd-label{
+  font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ghost);
+}
+.cd-sep{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(30px,5vw,60px);
+  font-weight:300;
+  color:rgba(240,237,230,0.15);
+  margin-top:4px;
+  animation:sep-pulse 1s step-start infinite;
+}
+@keyframes sep-pulse{0%,100%{opacity:0.6}50%{opacity:0.15}}
+
+/* ── PILOT PREVIEW CARD ──────────────────────────────────── */
+.pilot-wrap{
+  width:100%;
+  max-width:680px;
+  position:relative;
+  opacity:0;
+  animation:fade-up 1s 1.3s ease forwards;
+}
+.pilot-card{
+  position:relative;
+  border:1px solid rgba(240,237,230,0.06);
+  overflow:hidden;
+  background:rgba(240,237,230,0.02);
+}
+/* Blurred content inside the card */
+.pilot-blurred{
+  padding:clamp(28px,5vw,48px) clamp(24px,4vw,44px);
+  filter:blur(7px);
+  user-select:none;
+  pointer-events:none;
+}
+.blur-row{
+  height:12px;
+  border-radius:2px;
+  background:rgba(240,237,230,0.12);
+  margin-bottom:14px;
+}
+.blur-row.w90{width:90%}
+.blur-row.w70{width:70%}
+.blur-row.w80{width:80%}
+.blur-row.w55{width:55%}
+.blur-row.w65{width:65%}
+.blur-row.tall{height:44px;border-radius:4px;margin-bottom:18px}
+.blur-row.short{height:8px}
+.blur-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;margin-top:20px;
+}
+.blur-box{
+  height:56px;border-radius:3px;
+  background:rgba(240,237,230,0.07);
+}
+
+/* Overlay badge */
+.pilot-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  background:radial-gradient(ellipse at center,
+    rgba(5,8,15,0.65) 0%,
+    rgba(5,8,15,0.5) 60%,
+    rgba(5,8,15,0.35) 100%);
+  backdrop-filter:blur(0px);
+}
+.pilot-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  border:1px solid rgba(10,124,110,0.5);
+  padding:12px 22px;
+  background:rgba(10,124,110,0.08);
+  animation:badge-shimmer 3s ease-in-out infinite;
+}
+@keyframes badge-shimmer{
+  0%,100%{border-color:rgba(10,124,110,0.4);background:rgba(10,124,110,0.06)}
+  50%{border-color:rgba(18,168,152,0.7);background:rgba(18,168,152,0.12)}
+}
+.badge-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--teal2);
+  animation:blink 1.8s ease-in-out infinite;
+}
+.badge-text{
+  font-family:'DM Mono',monospace;
+  font-size:clamp(10px,1.4vw,13px);
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--teal2);
+}
+.pilot-date{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(20px,3.5vw,32px);
+  font-weight:300;font-style:italic;
+  color:rgba(240,237,230,0.85);
+}
+.pilot-sub{
+  font-family:'DM Mono',monospace;
+  font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--ghost);
+}
+
+/* Corner accents on card */
+.corner{
+  position:absolute;
+  width:14px;height:14px;
+  border-color:var(--teal);
+  border-style:solid;
+}
+.corner.tl{top:-1px;left:-1px;border-width:1px 0 0 1px}
+.corner.tr{top:-1px;right:-1px;border-width:1px 1px 0 0}
+.corner.bl{bottom:-1px;left:-1px;border-width:0 0 1px 1px}
+.corner.br{bottom:-1px;right:-1px;border-width:0 1px 1px 0}
+
+/* ── FOOTER LINE ─────────────────────────────────────────── */
+footer{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+  opacity:0;
+  animation:fade-up 0.8s 1.6s ease forwards;
+}
+.footer-left{
+  font-family:'DM Mono',monospace;
+  font-size:10px;letter-spacing:0.10em;
+  color:rgba(240,237,230,0.2);
+}
+.footer-right{
+  font-family:'DM Mono',monospace;
+  font-size:10px;letter-spacing:0.10em;
+  color:rgba(240,237,230,0.2);
+}
+
+/* ── SCAN LINE EFFECT ────────────────────────────────────── */
+.scanline{
+  position:fixed;
+  inset:0;z-index:2;
+  pointer-events:none;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.015) 2px,
+    rgba(0,0,0,0.015) 4px
+  );
+  opacity:0.6;
+}
+
+/* ── THIN PROGRESS BAR ───────────────────────────────────── */
+.progress-bar{
+  position:fixed;top:0;left:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--teal),var(--teal2));
+  z-index:100;
+  animation:progress-load 2.2s cubic-bezier(0.4,0,0.2,1) forwards;
+  transform-origin:left;
+}
+@keyframes progress-load{
+  0%{width:0%}
+  60%{width:85%}
+  100%{width:100%;opacity:0}
+}
+
+/* ── KEYFRAMES ───────────────────────────────────────────── */
+@keyframes fade-up{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:600px){
+  .cd-sep{display:none}
+  .countdown{gap:10px;flex-wrap:wrap;justify-content:center}
+  .cd-num{min-width:60px;font-size:42px}
+  .blur-grid{grid-template-columns:1fr 1fr}
+  footer{flex-direction:column;align-items:center;text-align:center}
+  .nav-status span:last-child{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar"></div>
+<div class="glow-orb"></div>
+<div class="scanline"></div>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">
+      <img class="nav-logo"
+           src="https://img1.wsimg.com/blobby/go/1b546cda-ec27-4ad0-86da-ee80619ce4d1/downloads/ee8142f7-4625-4377-b322-2ff7eb042799/Photoroom_20251003_194858.PNG?ver=1779977804697"
+           alt="The Agpians"/>
+      <span class="nav-name">The Agpians</span>
+    </div>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span>Building</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="eyebrow">
+      <span class="ey-line"></span>
+      <span class="ey-txt">We&rsquo;ll be right back</span>
+    </div>
+
+    <h1 class="headline">
+      The platform<br/>
+      is <em>offline.</em>
+    </h1>
+
+    <p class="return-date">Website returns September 07, 2026</p>
+
+    <!-- COUNTDOWN -->
+    <div class="countdown" aria-label="Countdown timer">
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-d">--</span>
+        <span class="cd-label">Days</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-h">--</span>
+        <span class="cd-label">Hours</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-m">--</span>
+        <span class="cd-label">Minutes</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-s">--</span>
+        <span class="cd-label">Seconds</span>
+      </div>
+    </div>
+
+    <!-- PILOT PREVIEW CARD -->
+    <div class="pilot-wrap">
+      <div class="pilot-card">
+
+        <!-- Corner accents -->
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+
+        <!-- Blurred background content -->
+        <div class="pilot-blurred" aria-hidden="true">
+          <div class="blur-row tall w90"></div>
+          <div class="blur-row w70"></div>
+          <div class="blur-row w80"></div>
+          <div class="blur-row w55 short"></div>
+          <div class="blur-grid">
+            <div class="blur-box"></div>
+            <div class="blur-box"></div>
+            <div class="blur-box"></div>
+            <div class="blur-box"></div>
+            <div class="blur-box"></div>
+            <div class="blur-box"></div>
+          </div>
+          <div style="margin-top:18px">
+            <div class="blur-row w65"></div>
+            <div class="blur-row w80 short" style="margin-top:8px"></div>
+          </div>
+        </div>
+
+        <!-- Overlay -->
+        <div class="pilot-overlay">
+          <div class="pilot-badge">
+            <span class="badge-dot"></span>
+            <span class="badge-text">Pilot Version</span>
+          </div>
+          <p class="pilot-date">Launching September 09, 2026</p>
+          <p class="pilot-sub">Something truly special &mdash; a fresh start</p>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-left">&copy; 2026 The Agpians &nbsp;&middot;&nbsp; Financial Education Platform</span>
+    <span class="footer-right">Mumbai, India &nbsp;&middot;&nbsp; Melbourne, Australia</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* Target: September 07, 2026 00:00:00 IST (UTC+5:30) */
+  var target = new Date('2026-09-07T00:00:00+05:30').getTime();
+
+  var els = {
+    d: document.getElementById('cd-d'),
+    h: document.getElementById('cd-h'),
+    m: document.getElementById('cd-m'),
+    s: document.getElementById('cd-s'),
+  };
+
+  function pad(n){ return String(Math.max(0,n)).padStart(2,'0'); }
+
+  function animFlip(el, newVal){
+    if(el.textContent === newVal) return;
+    el.classList.add('flip');
+    setTimeout(function(){
+      el.textContent = newVal;
+      el.classList.remove('flip');
+    }, 150);
+  }
+
+  function tick(){
+    var now  = Date.now();
+    var diff = target - now;
+
+    if(diff <= 0){
+      els.d.textContent = '00';
+      els.h.textContent = '00';
+      els.m.textContent = '00';
+      els.s.textContent = '00';
+      return;
+    }
+
+    var days  = Math.floor(diff / 86400000);
+    var hours = Math.floor((diff % 86400000) / 3600000);
+    var mins  = Math.floor((diff % 3600000)  / 60000);
+    var secs  = Math.floor((diff % 60000)    / 1000);
+
+    animFlip(els.d, pad(days));
+    animFlip(els.h, pad(hours));
+    animFlip(els.m, pad(mins));
+    animFlip(els.s, pad(secs));
+  }
+
+  tick();
+  setInterval(tick, 1000);
+
+}());
+</script>
+
+</body>
+</html>
